@@ -11,20 +11,21 @@
   <!-- Tipografías: SF (iOS) + Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      /* Paleta sólida, clásica */
-      --bg: #f6f7f9;               /* fondo general claro */
-      --ink: #0b0d11;              /* texto principal */
-      --muted: #5d6470;            /* secundario */
-      --card: rgba(255,255,255,.78); /* liquid glass (sin degradado) */
-      --border: rgba(0,0,0,.10);   /* borde sutil */
-      --divider: rgba(0,0,0,.08);
+      /* Fondo de página (sólido), y tarjeta glass MÁS OSCURA */
+      --bg: #f3f4f6;               /* fondo general */
+      --ink: #f2f4f7;              /* texto dentro de la tarjeta (claro) */
+      --muted: #b3bac6;            /* secundario dentro de tarjeta */
+      --card: rgba(34,36,42,.82);  /* liquid glass oscuro (sin degradado) */
+      --border: rgba(255,255,255,.14);
+      --divider: rgba(255,255,255,.14);
+
       --brand: #ea6003;            /* naranja marca */
-      --btn: #ffffff;              /* botón neutro */
-      --btn-ink: #0b0d11;
+      --btn: #ffffff;              /* botón neutro sólido */
+      --btn-ink: #0b0d11;          /* texto de botón neutro */
 
       --radius: 22px;
       --tap: 56px;
@@ -32,32 +33,32 @@
     }
     @media (prefers-color-scheme: dark){
       :root{
-        --bg:#0b0d11; --ink:#f2f4f7; --muted:#a4acb9;
-        --card: rgba(20,22,28,.78);
-        --border: rgba(255,255,255,.12);
-        --divider: rgba(255,255,255,.10);
+        --bg:#0b0d11;
+        --card: rgba(18,20,24,.84); /* aún más oscuro en dark */
+        --border: rgba(255,255,255,.16);
+        --divider: rgba(255,255,255,.16);
         --btn:#161a20; --btn-ink:#f2f4f7;
       }
     }
 
-    /* Reset + tipografías del sistema Apple + Montserrat para el título */
+    /* Reset + sistema Apple + Montserrat para el título */
     *{ box-sizing: border-box }
     html,body{ height:100% }
     body{
-      margin:0; background:var(--bg); color:var(--ink);
-      font-family: -apple-system, system-ui, "SF Pro Text", Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      margin:0; background:var(--bg);
+      font-family: -apple-system, system-ui, "SF Pro Text", "Helvetica Neue", Inter, "Segoe UI", Roboto, Arial, sans-serif;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      color:#0b0d11; /* solo fuera de la tarjeta; dentro usamos var(--ink) explícito */
     }
 
-    /* Preloader mínimo, sin vaivén */
+    /* Preloader mínimo, sin vaivén ni degradados */
     .preload{ position:fixed; inset:0; display:grid; place-items:center; z-index:50;
       background: var(--bg); transition: opacity .45s ease .05s, visibility 0s linear .5s; }
     .preload--hide{ opacity:0; visibility:hidden }
     .pre-card{
-      padding:20px 24px; border-radius:18px; border:1px solid var(--border);
-      background: var(--card); backdrop-filter: blur(16px) saturate(1.05); -webkit-backdrop-filter: blur(16px) saturate(1.05);
-      box-shadow: 0 12px 36px rgba(0,0,0,.12);
-      font-size:15px; color:var(--muted);
+      padding:16px 20px; border-radius:14px; border:1px solid rgba(0,0,0,.12);
+      background: #fff; color:#606872; font-size:14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
     }
 
     /* Contenedor */
@@ -65,23 +66,25 @@
     .card{
       width:min(100%, var(--maxw));
       background: var(--card);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px) saturate(1.05);
+      -webkit-backdrop-filter: blur(18px) saturate(1.05);
       border:1px solid var(--border); border-radius: clamp(18px,3vw,28px); overflow:hidden;
-      box-shadow: 0 16px 44px rgba(0,0,0,.10);
+      box-shadow: 0 16px 44px rgba(0,0,0,.18);
+      color: var(--ink); /* texto claro dentro */
     }
 
-    /* Header tipográfico sin animaciones, line-height corregido */
+    /* Header tipográfico sin animaciones, line-height y paddings corregidos */
     header{
-      text-align:center; padding: clamp(26px,4vw,36px) clamp(16px,3vw,28px);
+      text-align:center; padding: clamp(28px,4vw,40px) clamp(16px,3vw,28px);
       border-bottom:1px solid var(--divider);
     }
     .name{
-      margin:0 0 6px;
+      margin:0 0 8px;
       font-family: "Montserrat", -apple-system, system-ui, sans-serif;
-      font-weight: 700;
+      font-weight:700;
       font-size: clamp(30px, 5.4vw, 46px);
-      line-height: 1.12;               /* evita cortar descendentes (g,y,p) */
-      letter-spacing: .1px;
+      line-height: 1.18;            /* descendentes (g,y,p) sin cortes */
+      letter-spacing: .2px;
       color: var(--ink);
     }
     .subtitle{
@@ -100,38 +103,30 @@
       transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
       will-change: transform;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,.10); border-color: var(--divider) }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,.14); border-color: rgba(0,0,0,.18) }
     .btn:active{ transform: translateY(0) }
     .icon{ width:22px; height:22px; flex:0 0 auto; color:currentColor }
 
     .text{ font-weight:700; font-size: clamp(14px,2.2vw,16px); letter-spacing:.2px }
-    .subtext{ display:block; color:var(--muted); font-weight:600; font-size:12px }
+    .subtext{ display:block; color:#697283; font-weight:600; font-size:12px }
 
-    /* CTA (WhatsApp) con borde que “brilla” — contenido quieto, colores sólidos */
+    /* CTA WhatsApp con único efecto “backlight” en el BORDE (contenido quieto) */
     .cta{
-      background: #ffffff; color:#0b0d11; border-color: #e3e5e8;
+      background:#ffffff; color:#0b0d11; border-color:#e3e5e8;
     }
-    .cta .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:4px 8px; border-radius:999px; background: var(--brand); color:#fff;
-      font-weight:700; font-size:12px;
-    }
-    /* Pseudo-elemento para el brillo SOLO en el borde (sin degradados de relleno) */
     .cta::before{
       content:""; position:absolute; inset:0; border-radius:16px; pointer-events:none;
-      border:2px solid transparent;
-      /* “Brillo” simulado con box-shadow animado y cambio de borde a blanco leve */
-      box-shadow: 0 0 0 0 rgba(255,255,255,.0), 0 0 0 0 rgba(234,96,3,.0);
-      animation: borderFlash 2.2s ease-in-out infinite;
+      box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(234,96,3,0);
+      animation: ctaGlow 2.4s ease-in-out infinite;
     }
-    @keyframes borderFlash{
+    @keyframes ctaGlow{
       0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(234,96,3,0); }
-      40%  { box-shadow: 0 0 0 2px rgba(255,255,255,.45), 0 0 12px 2px rgba(234,96,3,.35); }
-      60%  { box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 0 8px 1px rgba(234,96,3,.25); }
+      40%  { box-shadow: 0 0 0 2px rgba(255,255,255,.45), 0 0 10px 2px rgba(234,96,3,.35); }
+      60%  { box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 0 6px 1px rgba(234,96,3,.25); }
       100% { box-shadow: 0 0 0 0 rgba(255,255,255,0), 0 0 0 0 rgba(234,96,3,0); }
     }
     @media (prefers-reduced-motion: reduce){
-      .cta::before{ animation: none }
+      .cta::before{ animation:none }
     }
 
     /* Chips utilitarios */
@@ -141,7 +136,7 @@
       border:1px solid var(--border); background:#fff; color:#0b0d11; cursor:pointer;
       transition: transform .12s ease, border-color .2s ease;
     }
-    .chip:hover{ transform: translateY(-1px); border-color: var(--divider) }
+    .chip:hover{ transform: translateY(-1px); border-color: rgba(0,0,0,.18) }
 
     /* Footer */
     footer{
@@ -163,15 +158,14 @@
   <main class="wrap">
     <section class="card" aria-labelledby="title">
       <header>
-        <!-- Título en Montserrat, sin animación, padding/line-height ajustados -->
         <h1 id="title" class="name">Sergio Perego</h1>
         <p class="subtitle">Contacto y perfiles</p>
       </header>
 
       <nav class="links" role="list">
-        <!-- CTA: borde brillante (única microanimación) -->
+        <!-- CTA: borde con backlight -->
         <a class="btn cta" role="listitem" href="https://wa.me/34670276179" target="_blank" rel="noopener" aria-label="Hablar ahora por WhatsApp">
-          <!-- Icono WhatsApp (sólido, consistente) -->
+          <!-- Icono WhatsApp (sólido) -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2.5a9.5 9.5 0 1 0 0 19c1.67 0 3.23-.43 4.58-1.2l2.92.79-.8-2.88A9.47 9.47 0 0 0 21.5 12 9.5 9.5 0 0 0 12 2.5Zm5.07 13.34c-.2.56-1.16 1.07-1.65 1.1-.42.03-.95.15-3.23-.67-2.71-1.05-4.45-3.78-4.59-3.96-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.95-2.25.25-.26.55-.33.73-.33h.53c.17 0 .4-.06.61.46.2.52.7 1.8.77 1.93.07.13.12.29.02.47-.1.18-.15.29-.3.44-.14.15-.3.33-.43.45-.14.15-.29.3-.12.58.18.28.78 1.28 1.68 2.08 1.16 1.02 2.14 1.34 2.44 1.49.3.15.48.12.66-.07.2-.2.76-.88.96-1.19.2-.31.41-.25.68-.15.28.1 1.76.83 2.06.99.3.16.5.25.57.39.06.14.06.82-.14 1.38Z" fill="currentColor"/>
           </svg>
@@ -179,7 +173,6 @@
             <span class="text">Hablar ahora por WhatsApp</span>
             <span class="subtext">Respuesta rápida</span>
           </div>
-          <span class="badge" aria-hidden="true">Prioridad</span>
         </a>
 
         <!-- Guardar contacto (vCard local) -->
@@ -218,7 +211,7 @@
           </div>
         </a>
 
-        <!-- LinkedIn (sin arroba en el texto) -->
+        <!-- LinkedIn (sin arroba) -->
         <a class="btn" role="listitem" href="https://www.linkedin.com/in/sergio-perego-31032b1b1/" target="_blank" rel="noopener" aria-label="Abrir perfil de LinkedIn de Sergio Perego">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -261,8 +254,8 @@
     (function(){
       const preload = document.getElementById('preload');
       const hide = ()=> preload.classList.add('preload--hide');
-      if (document.readyState === 'complete') setTimeout(hide, 480);
-      else window.addEventListener('load', ()=> setTimeout(hide, 480));
+      if (document.readyState === 'complete') setTimeout(hide, 420);
+      else window.addEventListener('load', ()=> setTimeout(hide, 420));
     })();
 
     // Copiar util
@@ -272,7 +265,7 @@
         try{
           await navigator.clipboard.writeText(btn.getAttribute('data-copy'));
           btn.textContent = 'Copiado ✔';
-          setTimeout(()=> btn.textContent = orig, 1600);
+          setTimeout(()=> btn.textContent = orig, 1400);
         }catch(e){ prompt('Copia manualmente:', btn.getAttribute('data-copy')); }
       });
     });
