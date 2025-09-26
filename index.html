@@ -9,8 +9,7 @@
   <meta name="color-scheme" content="light dark" />
   <meta property="og:title" content="Food Forever • Contacto" />
   <meta property="og:description" content="Accesos rápidos: WhatsApp, llamada, email, web y LinkedIn." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/foodforever/allmylinks/refs/heads/main/logo.png" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/foodforever/allmylinks/907bf68e1c1fd4915dc14ead9b58eb59ff0dd8a7/logosvg.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,17 +18,17 @@
   <style>
     :root{
       /* ——— Tokens ——— */
-      --bg: #0e0f12;                /* Fondo neutro sólido (sin degradado) */
-      --ink: #ffffff;               /* Texto principal */
-      --muted: rgba(255,255,255,.70);
-      --edge: rgba(255,255,255,.18);/* Borde glass */
-      --veil: rgba(255,255,255,.06);/* Panel glass translúcido */
-      --brand: #ea6003;             /* Naranja oficial Food Forever */
+      --bg: #0e0f12;
+      --ink: #ffffff;
+      --muted: rgba(255,255,255,.75); /* CAMBIO: Aumentada opacidad para mejor legibilidad */
+      --edge: rgba(255,255,255,.18);
+      --veil: rgba(255,255,255,.06);
+      --brand: #ea6003;
       --brand-weak: rgba(234,96,3,.28);
 
       --radius: 24px;
       --tap: 56px;
-      --maxw: 820px; /* Más ancho para alojar logo XXL y seguir siendo responsive */
+      --maxw: 560px;
     }
 
     *{ box-sizing: border-box }
@@ -53,62 +52,37 @@
       box-shadow:
         0 1px 0 rgba(255,255,255,.04) inset,
         0 -1px 0 rgba(255,255,255,.02) inset,
-        0 22px 60px rgba(0,0,0,.45);
-      overflow:hidden; position:relative;
-    }
-    .card::after{
-      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
-      width:74%; height:180px; background: var(--brand);
-      filter: blur(100px); opacity:.26; pointer-events:none;
-      animation: brandPulse2 3.6s ease-in-out infinite;
-    }
-    /* Segunda corona muy tenue para profundidad */
-    .card::before{
-      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
-      width:96%; height:260px; background: var(--brand);
-      filter: blur(200px); opacity:.12; pointer-events:none;
-      animation: brandPulse2 3.6s ease-in-out infinite;
+        0 18px 48px rgba(0,0,0,.35);
+      overflow:hidden;
     }
 
     /* ——— Header ——— */
     header{
-      text-align:center; padding: clamp(56px,10vw,92px) clamp(22px,4vw,32px);
-      background: rgba(255,255,255,.06); /* vidrio esmerilado, sin degradado */
-      color:#fff; border-bottom:1px solid var(--edge); position:relative;
-      backdrop-filter: blur(16px) saturate(1.1);
-      -webkit-backdrop-filter: blur(16px) saturate(1.1);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.10),
-        inset 0 -1px 0 rgba(0,0,0,.25);
+      text-align:center;
+      padding: clamp(48px, 8vw, 80px) clamp(22px, 4vw, 32px); /* CAMBIO: Mayor padding vertical */
+      background: linear-gradient(165deg, #fd7e14, #ea6003); /* CAMBIO: Gradiente sutil para un look más pro */
+      color:#fff;
+      border-bottom:0;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,.08);
     }
-    /* Backlight naranja con pulso (detrás del vidrio) */
-    header::before{
-      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
-      width:90%; height:260px; background: var(--brand);
-      filter: blur(140px); opacity:.46; pointer-events:none;
-      animation: brandPulse 2.2s ease-in-out infinite;
-    }
-    /* Aro de precisión: micro-borde interno para sensación "corte a cuchillo" */
-    header::after{
-      content:""; position:absolute; inset:8px 8px calc(8px - 1px) 8px; border-radius:20px;
-      border:1px solid rgba(255,255,255,.12); pointer-events:none;
-    }
-    .logo-wrap{ display:grid; place-items:center; margin-bottom:18px; width: min(94%, 960px); margin-left:auto; margin-right:auto }
+    .logo-wrap{ display:grid; place-items:center; margin-bottom:20px } /* CAMBIO: Aumentado margen inferior */
     .logo{
-      width: 100%; max-width: none; height: auto; display:block;
+      width: min(85%, 420px); /* CAMBIO: Lógica simplificada. 85% del ancho con un máximo de 420px. Perfecto para responsive. */
+      height: auto;
+      display:block;
       image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;
       filter: drop-shadow(0 0 0 rgba(0,0,0,0));
     }
     .name{
       margin:0 0 2px;
       font-family: "Montserrat", -apple-system, system-ui, sans-serif;
-      font-weight:700; font-size: clamp(28px, 5.9vw, 36px); /* +40% */
-      letter-spacing:.2px; text-shadow: 0 1px 0 rgba(0,0,0,.25);
+      font-weight:700; font-size: clamp(20px, 4.2vw, 26px);
+      letter-spacing:.2px;
     }
-    .subtitle{ display:none }
+    .subtitle{ margin:0; color:rgba(255,255,255,.92); font-weight:600; font-size: clamp(13px,2.4vw,15px) }
 
     /* ——— Enlaces ——— */
-    .links{ display:grid; gap:12px; padding: clamp(18px,3.5vw,26px) }
+    .links{ display:grid; gap:14px; padding: clamp(22px,4vw,30px) } /* CAMBIO: Más gap y padding */
     .btn{
       min-height: var(--tap);
       display:flex; align-items:center; gap:14px; width:100%; padding: 0 clamp(16px,2.5vw,20px);
@@ -120,33 +94,30 @@
     }
     .btn:hover{ transform: translateY(-2px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22) }
     .btn:active{ transform: translateY(0) }
+    
+    .btn:hover .icon { transform: scale(1.1); } /* CAMBIO: Micro-interacción en el icono */
 
-    .icon{ width:22px; height:22px; flex:0 0 auto; color:currentColor; opacity: .95 }
+    .icon{
+      width:22px; height:22px; flex:0 0 auto; color:currentColor; opacity: .95;
+      transition: transform .2s ease; /* CAMBIO: Transición suave para el icono */
+    }
     .text{ font-weight:700; font-size: clamp(15px,2.2vw,16px); letter-spacing:.2px }
     .subtext{ display:block; color: var(--muted); font-weight:600; font-size:12px; margin-top: 2px }
 
     /* ——— CTA WhatsApp: borde con micro-animación (sin degradado) ——— */
     .cta{
-      background: rgba(234,96,3,.12);
-      border-color: rgba(234,96,3,.45);
+      background: rgba(234,96,3,.08);
+      border-color: var(--brand-weak);
     }
-    .cta::after{ /* halo de borde animado, SOLO el borde (más brillante) */
+    .cta::after{
       content:""; position:absolute; inset:-1px; border-radius:16px; pointer-events:none;
-      border:2px solid rgba(234,96,3,.45);
-      box-shadow: 0 0 0 0 rgba(234,96,3,0);
-      animation: borderGlow 2s ease-in-out infinite;
+      border:2px solid transparent;
+      box-shadow: 0 0 0 0 rgba(234,96,3,.0);
+      animation: borderGlow 2.4s ease-in-out infinite;
     }
     @keyframes borderGlow{
-      0%,100%{ box-shadow: 0 0 0 0 rgba(234,96,3,0) }
-      50%    { box-shadow: 0 0 0 6px rgba(234,96,3,.36) }
-    }
-    @keyframes brandPulse{
-      0%,100%{ opacity:.46; transform:translateX(-50%) scale(1) }
-      50%     { opacity:.72; transform:translateX(-50%) scale(1.14) }
-    }
-    @keyframes brandPulse2{
-      0%,100%{ opacity:.10; transform:translateX(-50%) scale(1) }
-      50%     { opacity:.18; transform:translateX(-50%) scale(1.08) }
+      0%,100%{ box-shadow: 0 0 0 0 rgba(234,96,3,.0) }
+      50%    { box-shadow: 0 0 0 4px rgba(234,96,3,.22) }
     }
     .cta:hover{ background: rgba(234,96,3,.14); border-color: rgba(234,96,3,.45) }
 
@@ -170,8 +141,7 @@
     @media (prefers-reduced-motion: reduce){
       *{ animation: none !important; transition: none !important }
     }
-    }
-  /* ——— Intro de bienvenida (loading minimal) ——— */
+    /* ——— Intro de bienvenida (loading minimal) ——— */
     .intro{ position:fixed; inset:0; display:grid; place-items:center; background: rgba(14,15,18,.86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999; transition: opacity .5s ease; }
     .intro--hide{ opacity:0; pointer-events:none }
     .intro-box{ background: var(--veil); border:1px solid var(--edge); border-radius:16px; padding:18px 20px; box-shadow:0 10px 30px rgba(0,0,0,.35) }
@@ -193,15 +163,13 @@
     <section class="card" aria-label="Tarjeta de contacto Food Forever">
       <header>
         <div class="logo-wrap">
-          <!-- SUGERENCIA: si existe SVG, usa ese recurso para nitidez perfecta.  -->
-          <img class="logo" alt="Logo Food Forever" src="https://raw.githubusercontent.com/foodforever/allmylinks/refs/heads/main/logo.png">
+          <img class="logo" alt="Logo Food Forever" src="https://raw.githubusercontent.com/foodforever/allmylinks/907bf68e1c1fd4915dc14ead9b58eb59ff0dd8a7/logosvg.svg">
         </div>
         <h1 class="name" id="title">Sergio Perego</h1>
         <p class="subtitle">Contacto y enlaces</p>
       </header>
 
       <nav class="links" role="list">
-        <!-- CTA principal -->
         <a class="btn cta" role="listitem" href="https://wa.me/34670276179" target="_blank" rel="noopener" aria-label="Hablar ahora por WhatsApp">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 1 0 0 19c1.67 0 3.23-.43 4.58-1.2l2.92.79-.8-2.88A9.47 9.47 0 0 0 21.5 12 9.5 9.5 0 0 0 12 2.5Zm5.07 13.34c-.2.56-1.16 1.07-1.65 1.1-.42.03-.95.15-3.23-.67-2.71-1.05-4.45-3.78-4.59-3.96-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.95-2.25.25-.26.55-.33.73-.33h.53c.17 0 .4-.06.61.46.2.52.7 1.8.77 1.93.07.13.12.29.02.47-.1.18-.15.29-.3.44-.14.15-.3.33-.43.45-.14.15-.29.3-.12.58.18.28.78 1.28 1.68 2.08 1.16 1.02 2.14 1.34 2.44 1.49.3.15.48.12.66-.07.2-.2.76-.88.96-1.19.2-.31.41-.25.68-.15.28.1 1.76.83 2.06.99.3.16.5.25.57.39.06.14.06.82-.14 1.38Z" fill="currentColor"/></svg>
           <div>
@@ -210,7 +178,7 @@
           </div>
         </a>
 
-        <a class="btn" role="listitem" id="vcfLink" href="#" download aria-label="Guardar contacto de Sergio Perego (VCF)">
+        <a class="btn" role="listitem" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3ASergio%20Perego%0AN%3APerego%3BSergio%3B%3B%3B%0AORG%3AFood%20Forever%0ATEL%3BTYPE%3DCELL%3A%2B34670276179%0AEMAIL%3Asperego%40foodforever.net%0AEND%3AVCARD" download="Sergio-Perego.vcf" aria-label="Guardar contacto de Sergio Perego (VCF)">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8.5L20.5 9v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2Zm8 0v5.5h5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16v-6m0 6l-3-3m3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <div>
             <span class="text">Guardar contacto</span>
@@ -267,25 +235,6 @@
     setTimeout(()=> intro?.remove(), 2000);
     // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Preparar vCard en data URI para descarga consistente en todos los hosts
-    const vcf = [
-      'BEGIN:VCARD',
-      'VERSION:3.0',
-      'N:Perego;Sergio;;;',
-      'FN:Sergio Perego',
-      'ORG:Food Forever',
-      'TITLE:',
-      'TEL;TYPE=CELL,VOICE:+34670276179',
-      'EMAIL;TYPE=INTERNET:sperego@foodforever.net',
-      'URL:https://www.gastronomus.net',
-      'END:VCARD'
-    ].join('\n');
-    const vcfLink = document.getElementById('vcfLink');
-    if (vcfLink){
-      vcfLink.setAttribute('href', 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf));
-      vcfLink.setAttribute('download', 'Sergio-Perego.vcf');
-    }
 
     // Copiar utilitario
     document.querySelectorAll('[data-copy]').forEach(btn=>{
