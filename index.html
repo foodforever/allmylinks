@@ -10,7 +10,7 @@
   <meta property="og:title" content="Food Forever • Contacto" />
   <meta property="og:description" content="Accesos rápidos: WhatsApp, llamada, email, web y LinkedIn." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/foodforever/allmylinks/907bf68e1c1fd4915dc14ead9b58eb59ff0dd8a7/logosvg.svg" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/foodforever/allmylinks/refs/heads/main/logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +29,7 @@
 
       --radius: 24px;
       --tap: 56px;
-      --maxw: 560px; /* Ancho mayor para alojar logo grande sin romper layout */
+      --maxw: 820px; /* Más ancho para alojar logo XXL y seguir siendo responsive */
     }
 
     *{ box-sizing: border-box }
@@ -45,38 +45,67 @@
     .wrap{ min-height:100%; display:grid; place-items:center; padding: clamp(24px,4vw,56px) }
     .card{
       width:min(100%, var(--maxw));
-      background-color: var(--veil); /* sin gradient */
+      background-color: var(--veil);
       backdrop-filter: blur(22px) saturate(1.1);
       -webkit-backdrop-filter: blur(22px) saturate(1.1);
       border:1px solid var(--edge);
       border-radius: clamp(22px,4vw,30px);
-      /* Luz sutil de vidrio (sin gradientes): solo sombras */
       box-shadow:
         0 1px 0 rgba(255,255,255,.04) inset,
         0 -1px 0 rgba(255,255,255,.02) inset,
-        0 18px 48px rgba(0,0,0,.35);
-      overflow:hidden;
+        0 22px 60px rgba(0,0,0,.45);
+      overflow:hidden; position:relative;
+    }
+    .card::after{
+      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
+      width:74%; height:180px; background: var(--brand);
+      filter: blur(100px); opacity:.26; pointer-events:none;
+      animation: brandPulse2 3.6s ease-in-out infinite;
+    }
+    /* Segunda corona muy tenue para profundidad */
+    .card::before{
+      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
+      width:96%; height:260px; background: var(--brand);
+      filter: blur(200px); opacity:.12; pointer-events:none;
+      animation: brandPulse2 3.6s ease-in-out infinite;
     }
 
     /* ——— Header ——— */
     header{
-      text-align:center; padding: clamp(40px,7vw,64px) clamp(22px,4vw,32px);
-      background: var(--brand); color:#fff; border-bottom:0;
-      box-shadow: inset 0 -1px 0 rgba(0,0,0,.08);
+      text-align:center; padding: clamp(56px,10vw,92px) clamp(22px,4vw,32px);
+      background: rgba(255,255,255,.06); /* vidrio esmerilado, sin degradado */
+      color:#fff; border-bottom:1px solid var(--edge); position:relative;
+      backdrop-filter: blur(16px) saturate(1.1);
+      -webkit-backdrop-filter: blur(16px) saturate(1.1);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        inset 0 -1px 0 rgba(0,0,0,.25);
     }
-    .logo-wrap{ display:grid; place-items:center; margin-bottom:18px }
+    /* Backlight naranja con pulso (detrás del vidrio) */
+    header::before{
+      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
+      width:90%; height:260px; background: var(--brand);
+      filter: blur(140px); opacity:.46; pointer-events:none;
+      animation: brandPulse 2.2s ease-in-out infinite;
+    }
+    /* Aro de precisión: micro-borde interno para sensación "corte a cuchillo" */
+    header::after{
+      content:""; position:absolute; inset:8px 8px calc(8px - 1px) 8px; border-radius:20px;
+      border:1px solid rgba(255,255,255,.12); pointer-events:none;
+    }
+    .logo-wrap{ display:grid; place-items:center; margin-bottom:18px; width: min(94%, 960px); margin-left:auto; margin-right:auto }
     .logo{
-      width: clamp(340px, 70%, 440px); height: auto; display:block;
+      width: 100%; max-width: none; height: auto; display:block;
       image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;
       filter: drop-shadow(0 0 0 rgba(0,0,0,0));
     }
     .name{
       margin:0 0 2px;
       font-family: "Montserrat", -apple-system, system-ui, sans-serif;
-      font-weight:700; font-size: clamp(20px, 4.2vw, 26px);
-      letter-spacing:.2px;
+      font-weight:700; font-size: clamp(28px, 5.9vw, 36px); /* +40% */
+      letter-spacing:.2px; text-shadow: 0 1px 0 rgba(0,0,0,.25);
     }
-    .subtitle{ margin:0; color:rgba(255,255,255,.92); font-weight:600; font-size: clamp(13px,2.4vw,15px) }
+    .subtitle{ display:none }
 
     /* ——— Enlaces ——— */
     .links{ display:grid; gap:12px; padding: clamp(18px,3.5vw,26px) }
@@ -98,18 +127,26 @@
 
     /* ——— CTA WhatsApp: borde con micro-animación (sin degradado) ——— */
     .cta{
-      background: rgba(234,96,3,.08);
-      border-color: var(--brand-weak);
+      background: rgba(234,96,3,.12);
+      border-color: rgba(234,96,3,.45);
     }
-    .cta::after{ /* halo de borde animado, SOLO el borde */
+    .cta::after{ /* halo de borde animado, SOLO el borde (más brillante) */
       content:""; position:absolute; inset:-1px; border-radius:16px; pointer-events:none;
-      border:2px solid transparent;
-      box-shadow: 0 0 0 0 rgba(234,96,3,.0);
-      animation: borderGlow 2.4s ease-in-out infinite;
+      border:2px solid rgba(234,96,3,.45);
+      box-shadow: 0 0 0 0 rgba(234,96,3,0);
+      animation: borderGlow 2s ease-in-out infinite;
     }
     @keyframes borderGlow{
-      0%,100%{ box-shadow: 0 0 0 0 rgba(234,96,3,.0) }
-      50%    { box-shadow: 0 0 0 4px rgba(234,96,3,.22) }
+      0%,100%{ box-shadow: 0 0 0 0 rgba(234,96,3,0) }
+      50%    { box-shadow: 0 0 0 6px rgba(234,96,3,.36) }
+    }
+    @keyframes brandPulse{
+      0%,100%{ opacity:.46; transform:translateX(-50%) scale(1) }
+      50%     { opacity:.72; transform:translateX(-50%) scale(1.14) }
+    }
+    @keyframes brandPulse2{
+      0%,100%{ opacity:.10; transform:translateX(-50%) scale(1) }
+      50%     { opacity:.18; transform:translateX(-50%) scale(1.08) }
     }
     .cta:hover{ background: rgba(234,96,3,.14); border-color: rgba(234,96,3,.45) }
 
@@ -132,6 +169,7 @@
     /* ——— Motion Safe ——— */
     @media (prefers-reduced-motion: reduce){
       *{ animation: none !important; transition: none !important }
+    }
     }
   /* ——— Intro de bienvenida (loading minimal) ——— */
     .intro{ position:fixed; inset:0; display:grid; place-items:center; background: rgba(14,15,18,.86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999; transition: opacity .5s ease; }
@@ -156,7 +194,7 @@
       <header>
         <div class="logo-wrap">
           <!-- SUGERENCIA: si existe SVG, usa ese recurso para nitidez perfecta.  -->
-          <img class="logo" alt="Logo Food Forever" src="https://raw.githubusercontent.com/foodforever/allmylinks/907bf68e1c1fd4915dc14ead9b58eb59ff0dd8a7/logosvg.svg">
+          <img class="logo" alt="Logo Food Forever" src="https://raw.githubusercontent.com/foodforever/allmylinks/refs/heads/main/logo.png">
         </div>
         <h1 class="name" id="title">Sergio Perego</h1>
         <p class="subtitle">Contacto y enlaces</p>
@@ -172,7 +210,7 @@
           </div>
         </a>
 
-        <a class="btn" role="listitem" href="./Sergio-Perego.vcf" download aria-label="Guardar contacto de Sergio Perego (VCF)">
+        <a class="btn" role="listitem" id="vcfLink" href="#" download aria-label="Guardar contacto de Sergio Perego (VCF)">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8.5L20.5 9v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2Zm8 0v5.5h5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16v-6m0 6l-3-3m3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <div>
             <span class="text">Guardar contacto</span>
@@ -229,6 +267,25 @@
     setTimeout(()=> intro?.remove(), 2000);
     // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Preparar vCard en data URI para descarga consistente en todos los hosts
+    const vcf = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Perego;Sergio;;;',
+      'FN:Sergio Perego',
+      'ORG:Food Forever',
+      'TITLE:',
+      'TEL;TYPE=CELL,VOICE:+34670276179',
+      'EMAIL;TYPE=INTERNET:sperego@foodforever.net',
+      'URL:https://www.gastronomus.net',
+      'END:VCARD'
+    ].join('\n');
+    const vcfLink = document.getElementById('vcfLink');
+    if (vcfLink){
+      vcfLink.setAttribute('href', 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf));
+      vcfLink.setAttribute('download', 'Sergio-Perego.vcf');
+    }
 
     // Copiar utilitario
     document.querySelectorAll('[data-copy]').forEach(btn=>{
